@@ -1,0 +1,6 @@
+name: donkeyx
+channels:
+  - defaults
+dependencies:
+  - python=3.7.3
+  - tensorflow-1.13.1

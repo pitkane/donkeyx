@@ -5,8 +5,8 @@ import socket
 import shutil
 import argparse
 
-import donkeycar as dk
-from donkeycar.parts.datastore import Tub
+import donkeyx as donkeyx
+from donkeyx.parts.datastore import Tub
 from .tub import TubManager
 
 
@@ -62,16 +62,16 @@ class CreateCar(BaseCommand):
         args = self.parse_args(args)
         self.create_car(path=args.path, template=args.template, overwrite=args.overwrite)
 
-    def create_car(self, path, template='donkey2', overwrite=False):
+    def create_car(self, path, template='donkeyx-car', overwrite=False):
         """
-        This script sets up the folder struction for donkey to work.
-        It must run without donkey installed so that people installing with
+        This script sets up the folder struction for donkeyx to work.
+        It must run without donkeyx installed so that people installing with
         docker can build the folder structure for docker to mount to.
         """
 
         #these are neeeded incase None is passed as path
         path = path or '~/mycar'
-        template = template or 'donkey2'
+        template = template or 'donkeyx-car'
 
 
         print("Creating car folder: {}".format(path))
@@ -101,7 +101,7 @@ class CreateCar(BaseCommand):
             print("Copying car config defaults. Adjust these before starting your car.")
             shutil.copyfile(config_template_path, car_config_path)
 
-        print("Donkey setup complete.")
+        print("donkeyx setup complete.")
 
 
 
@@ -149,7 +149,7 @@ class CalibrateCar(BaseCommand):
         return parsed_args
 
     def run(self, args):
-        from donkeycar.parts.actuator import PCA9685
+        from donkeyx.parts.actuator import PCA9685
 
         args = self.parse_args(args)
         channel = int(args.channel)
@@ -239,7 +239,7 @@ class MakeMovie(BaseCommand):
 
 class Sim(BaseCommand):
     """
-    Start a websocket SocketIO server to talk to a donkey simulator
+    Start a websocket SocketIO server to talk to a donkeyx simulator
     """
 
     def parse_args(self, args):
@@ -253,11 +253,11 @@ class Sim(BaseCommand):
 
     def run(self, args):
         """
-        Start a websocket SocketIO server to talk to a donkey simulator
+        Start a websocket SocketIO server to talk to a donkeyx simulator
         """
         import socketio
-        from donkeycar.parts.simulation import SteeringServer
-        from donkeycar.parts.keras import KerasCategorical, KerasLinear
+        from donkeyx.parts.simulation import SteeringServer
+        from donkeyx.parts.keras import KerasCategorical, KerasLinear
 
         args, parser = self.parse_args(args)
 
@@ -340,7 +340,7 @@ class ShowHistogram(BaseCommand):
         Produce a histogram of record type frequency in the given tub
         """
         from matplotlib import pyplot as plt
-        from donkeycar.parts.datastore import TubGroup
+        from donkeyx.parts.datastore import TubGroup
 
         tg = TubGroup(tub_paths)
         if record_name is not None:
@@ -381,8 +381,8 @@ class ShowPredictionPlots(BaseCommand):
         Plot model predictions for angle and throttle against data from tubs.
 
         """
-        from donkeycar.parts.datastore import TubGroup
-        from donkeycar.parts.keras import KerasCategorical
+        from donkeyx.parts.datastore import TubGroup
+        from donkeyx.parts.keras import KerasCategorical
 
         tg = TubGroup(tub_paths)
 
@@ -434,7 +434,7 @@ class ShowPredictionPlots(BaseCommand):
 
 def execute_from_command_line():
     """
-    This is the fuction linked to the "donkey" terminal command.
+    This is the fuction linked to the "donkeyx" terminal command.
     """
     commands = {
             'createcar': CreateCar,
