@@ -2,7 +2,7 @@ FROM python:3.6
 
 WORKDIR /app
 
-# install donkey with tensorflow (cpu only version)
+# install donkeyx with tensorflow (cpu only version)
 ADD ./setup.py /app/setup.py
 ADD ./README.md /app/README.md
 RUN pip install -e .[tf]
@@ -22,7 +22,7 @@ ADD . /app
 #start the jupyter notebook
 CMD jupyter notebook --no-browser --ip 0.0.0.0 --port 8888 --allow-root  --notebook-dir=/app/notebooks
 
-#port for donkeycar
+# port for donkeycarx
 EXPOSE 8887
 
 #port for jupyter notebook

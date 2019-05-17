@@ -5,7 +5,7 @@ import logging.config
 def setup(log_file_path=None):
 
     if log_file_path is None:
-        log_file_path = os.path.expanduser('~/donkey.log')
+        log_file_path = os.path.expanduser('~/donkeyx.log')
 
     config_default = {
         "version": 1,

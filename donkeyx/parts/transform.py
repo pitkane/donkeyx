@@ -5,7 +5,7 @@ import time
 
 class Lambda:
     """
-    Wraps a function into a donkey part.
+    Wraps a function into a donkeyx part.
     """
     def __init__(self, f):
         """

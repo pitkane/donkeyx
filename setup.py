@@ -50,7 +50,7 @@ setup(name='donkeyx',
 
       include_package_data=True,
 
-      keywords='selfdriving cars donkeycar diyrobocars',
+      keywords='selfdriving cars donkeycar donkeyx diyrobocars',
 
       packages=find_packages(exclude=(['tests', 'docs', 'site', 'env'])),
       )

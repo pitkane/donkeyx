@@ -16,24 +16,24 @@ Usage:
 
 import os
 from docopt import docopt
-import donkeycar as dk
+import donkeyx
 
-from donkeycar.parts.datastore import TubGroup, TubWriter
-from donkeycar.parts.transform import Lambda
-from donkeycar.parts.simulation import SquareBoxCamera
-from donkeycar.parts.web_controller import LocalWebController
-from donkeycar.parts.keras import KerasLinear
-from donkeycar.parts.clock import Timestamp
+from donkeyx.parts.datastore import TubGroup, TubWriter
+from donkeyx.parts.transform import Lambda
+from donkeyx.parts.simulation import SquareBoxCamera
+from donkeyx.parts.web_controller import LocalWebController
+from donkeyx.parts.keras import KerasLinear
+from donkeyx.parts.clock import Timestamp
 
 log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sq.log')
-dk.log.setup(log_path)
-logger = dk.log.get_logger(__name__)
+donkeyx.log.setup(log_path)
+logger = donkeyx.log.get_logger(__name__)
 logger.info('Loading manage.py')
 
 
 def drive(cfg, model_path=None):
 
-    V = dk.vehicle.Vehicle()
+    V = donkeyx.vehicle.Vehicle()
     V.mem.put(['square/angle', 'square/throttle'], (100, 100))
 
     # display square box given by cooridantes.
@@ -133,7 +133,7 @@ def train(cfg, tub_names, model_name):
 
 
     def rt(record):
-        record['user/angle'] = donkeycar.utils.utils.linear_bin(record['user/angle'])
+        record['user/angle'] = donkeyx.utils.utils.linear_bin(record['user/angle'])
         return record
 
     def combined_gen(gens):
@@ -171,7 +171,7 @@ def train(cfg, tub_names, model_name):
 
 if __name__ == '__main__':
     args = docopt(__doc__)
-    cfg = dk.load_config()
+    cfg = donkeyx.load_config()
 
     if args['drive']:
         drive(cfg, args['--model'])

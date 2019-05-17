@@ -1,6 +1,6 @@
 fe#!/usr/bin/env python3
 """
-Scripts to drive a donkey 2 car and train a model for it.
+Scripts to drive a donkeyx car and train a model for it.
 
 Usage:
     manage.py (drive) [--model=<model>] [--js] [--chaos]
@@ -14,19 +14,19 @@ Options:
 import os
 
 from docopt import docopt
-import donkeycar as dk
+import donkeyx
 
-from donkeycar.parts.camera import PiCamera
-from donkeycar.parts.transform import Lambda
-from donkeycar.parts.keras import KerasLinear
-from donkeycar.parts.actuator import PCA9685, PWMSteering, PWMThrottle
-from donkeycar.parts.datastore import TubGroup, TubWriter
-from donkeycar.parts.web_controller import LocalWebController
-from donkeycar.parts.clock import Timestamp
-from donkeycar.parts.controller import LocalWebController, JoystickController
-from donkeycar.parts.datastore import TubGroup, TubWriter
-from donkeycar.parts.keras import KerasCategorical
-from donkeycar.parts.transform import Lambda
+from donkeyx.parts.camera import PiCamera
+from donkeyx.parts.transform import Lambda
+from donkeyx.parts.keras import KerasLinear
+from donkeyx.parts.actuator import PCA9685, PWMSteering, PWMThrottle
+from donkeyx.parts.datastore import TubGroup, TubWriter
+from donkeyx.parts.web_controller import LocalWebController
+from donkeyx.parts.clock import Timestamp
+from donkeyx.parts.controller import LocalWebController, JoystickController
+from donkeyx.parts.datastore import TubGroup, TubWriter
+from donkeyx.parts.keras import KerasCategorical
+from donkeyx.parts.transform import Lambda
 
 
 def drive(cfg, model_path=None, use_chaos=False):
@@ -40,7 +40,7 @@ def drive(cfg, model_path=None, use_chaos=False):
     to parts requesting the same named input.
     """
 
-    V = dk.vehicle.Vehicle()
+    V = donkeyx.vehicle.Vehicle()
 
     clock = Timestamp()
     V.add(clock, outputs=['timestamp'])
@@ -166,7 +166,7 @@ def train(cfg, tub_names, new_model_path, base_model_path=None):
 
 if __name__ == '__main__':
     args = docopt(__doc__)
-    cfg = dk.load_config()
+    cfg = donkeyx.load_config()
 
     if args['drive']:
         drive(cfg, model_path=args['--model'], use_chaos=args['--chaos'])

@@ -1,4 +1,4 @@
-# Script to install everything needed for donkeycar except the donkeycar library
+# Script to install everything needed for donkeyx except the donkeyx library
 
 #standard updates (5 min)
 sudo apt update -y

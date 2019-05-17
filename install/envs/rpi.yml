@@ -1,4 +1,4 @@
-name: donkey
+name: donkeyx
 dependencies:
 - certifi=14.05.14=py34_0
 - freetype=2.5.2=2

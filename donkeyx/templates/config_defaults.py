@@ -6,8 +6,8 @@ performance.
 
 EXMAPLE
 -----------
-import dk
-cfg = dk.load_config(config_path='~/mycar/config.py')
+import donkeyx
+cfg = donkeyx.load_config(config_path='~/mycar/config.py')
 print(cfg.CAMERA_RESOLUTION)
 
 """

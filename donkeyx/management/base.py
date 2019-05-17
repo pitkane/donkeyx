@@ -34,7 +34,7 @@ def load_config(config_path):
         return None
 
     try:
-        cfg = dk.load_config(conf)
+        cfg = donkeyx.load_config(conf)
     except:
         print("Exception while loading config from", conf)
         return None
@@ -201,7 +201,7 @@ class MakeMovie(BaseCommand):
             return
 
         try:
-            cfg = dk.load_config(conf)
+            cfg = donkeyx.load_config(conf)
         except:
             print("Exception while loading config from", conf)
             return
@@ -456,5 +456,5 @@ def execute_from_command_line():
         c = command()
         c.run(args[2:])
     else:
-        dk.util.proc.eprint('Usage: The availible commands are:')
-        dk.util.proc.eprint(list(commands.keys()))
+        donkeyx.util.proc.eprint('Usage: The availible commands are:')
+        donkeyx.util.proc.eprint(list(commands.keys()))

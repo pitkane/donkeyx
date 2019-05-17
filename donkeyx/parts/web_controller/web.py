@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jun 24 20:10:44 2017
-
-@author: wroscoe
-
 remotes.py
 
 The client and web server needed to control a car remotely.
@@ -21,7 +17,7 @@ import tornado.ioloop
 import tornado.web
 import tornado.gen
 
-from donkeycar import util
+from donkeyx import util
 
 
 class LocalWebController(tornado.web.Application):
@@ -32,7 +28,7 @@ class LocalWebController(tornado.web.Application):
         Create and publish variables needed on many of
         the web handlers.
         """
-        print('Starting Donkey Server...')
+        print('Starting donkeyx Server...')
 
         this_dir = os.path.dirname(os.path.realpath(__file__))
         self.static_file_path = os.path.join(this_dir, 'templates', 'static')
