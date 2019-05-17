@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Sep 13 21:27:44 2017
-
-@author: wroscoe
-"""
 import os
 import types
 
@@ -44,7 +37,7 @@ class Config:
         result = []
         for key in dir(self):
             if key.isupper():
-                result.append((key, getattr(self,key)))
+                result.append((key, getattr(self, key)))
         return str(result)
 
 
