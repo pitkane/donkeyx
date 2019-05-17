@@ -1,59 +1,17 @@
-# donkeycar: a python self driving library
+# DonkeyX (based on [donkeycar](http://donkeycar.com))
 
-[![Build Status](https://travis-ci.org/autorope/donkeycar.svg?branch=dev)](https://travis-ci.org/autorope/donkeycar)
-[![CodeCov](https://codecov.io/gh/autoropoe/donkeycar/branch/dev/graph/badge.svg)](https://codecov.io/gh/autorope/donkeycar/branch/dev)
-[![PyPI version](https://badge.fury.io/py/donkeycar.svg)](https://badge.fury.io/py/donkeycar)
-[![Py versions](https://img.shields.io/pypi/pyversions/donkeycar.svg)](https://img.shields.io/pypi/pyversions/donkeycar.svg)
+DonkeyX is a fork project based on [Donkeycar](http://donkeycar.com) started by Will Roscoe and Adam Conway in 2017.
 
-Donkeycar is minimalist and modular self driving library for Python. It is
-developed for hobbyists and students with a focus on allowing fast experimentation and easy
-community contributions.
+In this project things are done a bit differently, but all of the core components are based on original Donkeycar.
 
-#### Quick Links
-* [Donkeycar Updates & Examples](http://donkeycar.com)
-* [Build instructions and Software documentation](http://docs.donkeycar.com)
-* [Slack / Chat](https://donkey-slackin.herokuapp.com/)
+Wiki includes all of the documentation needed to get going!
 
-![donkeycar](./docs/assets/build_hardware/donkey2.PNG)
+[DonkeyX Wiki](https://github.com/pitkane/donkeyx/wiki)
 
-#### Use Donkey if you want to:
-* Make an RC car drive its self.
-* Compete in self driving races like [DIY Robocars](http://diyrobocars.com)
-* Experiment with autopilots, mapping computer vision and neural networks.
-* Log sensor data. (images, user inputs, sensor readings)
-* Drive your car via a web or game controller.
-* Leverage community contributed driving data.
-* Use existing CAD models for design upgrades.
+## Quick Links
 
-### Get driving.
-After building a Donkey2 you can turn on your car and go to http://localhost:8887 to drive.
+* [DonkeyX Wiki](https://github.com/pitkane/donkeyx/wiki)
 
-### Modify your cars behavior.
-The donkey car is controlled by running a sequence of events
-
-```python
-#Define a vehicle to take and record pictures 10 times per second.
-
-from donkeycar import Vehicle
-from donkeycar.parts.camera import PiCamera
-from donkeycar.parts.datastore import Tub
+* ~~[Slack / Chat](https://donkey-slackin.herokuapp.com/)~~ (todo)
 
 
-V = Vehicle()
-
-#add a camera part
-cam = PiCamera()
-V.add(cam, outputs=['image'], threaded=True)
-
-#add tub part to record images
-tub = Tub(path='~/mycar/get_started',
-          inputs=['image'],
-          types=['image_array'])
-V.add(tub, inputs=['image'])
-
-#start the drive loop at 10 Hz
-V.start(rate_hz=10)
-```
-
-See [home page](http://donkeycar.com), [docs](http://docs.donkeycar.com)
-or join the [Slack channel](http://www.donkeycar.com/community.html) to learn more.
