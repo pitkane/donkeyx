@@ -12,6 +12,9 @@ Wiki includes all of the documentation needed to get going!
 
 * [DonkeyX Wiki](https://github.com/pitkane/donkeyx/wiki)
 
-* ~~[Slack / Chat](https://donkey-slackin.herokuapp.com/)~~ (todo)
+* ~~[Slack / Chat](https://donkey-slackin.herokuapp.com/)~~ (tbd)
 
+## Miscellaneous
 
+* Add license information (donkey/WillRoscoe, etc)
+* gazillion other things todo
