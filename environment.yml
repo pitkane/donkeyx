@@ -3,4 +3,4 @@ channels:
   - defaults
 dependencies:
   - python=3.7.3
-  - tensorflow-1.13.1
+  - tensorflow=1.13.1

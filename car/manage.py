@@ -1,15 +1,14 @@
-fe#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Scripts to drive a donkeyx car and train a model for it.
 
 Usage:
-    manage.py (drive) [--model=<model>] [--js] [--chaos]
+    manage.py (drive) [--model=<model>] [--js]
     manage.py (train) [--tub=<tub1,tub2,..tubn>]  (--model=<model>) [--base_model=<base_model>] [--no_cache]
 
 Options:
     -h --help        Show this screen.
     --tub TUBPATHS   List of paths to tubs. Comma separated. Use quotes to use wildcards. ie "~/tubs/*"
-    --chaos          Add periodic random steering when manually driving
 """
 import os
 
@@ -21,15 +20,14 @@ from donkeyx.parts.transform import Lambda
 from donkeyx.parts.keras import KerasLinear
 from donkeyx.parts.actuator import PCA9685, PWMSteering, PWMThrottle
 from donkeyx.parts.datastore import TubGroup, TubWriter
-from donkeyx.parts.web_controller import LocalWebController
 from donkeyx.parts.clock import Timestamp
-from donkeyx.parts.controller import LocalWebController, JoystickController
+from donkeyx.parts.controller import JoystickController
 from donkeyx.parts.datastore import TubGroup, TubWriter
 from donkeyx.parts.keras import KerasCategorical
 from donkeyx.parts.transform import Lambda
 
 
-def drive(cfg, model_path=None, use_chaos=False):
+def drive(cfg, model_path=None):
     """
     Construct a working robotic vehicle from many parts.
     Each part runs as a job in the Vehicle loop, calling either
@@ -40,22 +38,19 @@ def drive(cfg, model_path=None, use_chaos=False):
     to parts requesting the same named input.
     """
 
-    V = donkeyx.vehicle.Vehicle()
+    vehicle = donkeyx.vehicle.Vehicle()
 
+    # Timestamp
     clock = Timestamp()
-    V.add(clock, outputs=['timestamp'])
+    vehicle.add(clock, outputs=['timestamp'])
 
+    # Camera
     cam = PiCamera(resolution=cfg.CAMERA_RESOLUTION)
-    V.add(cam, outputs=['cam/image_array'], threaded=True)
-
-    ctr = LocalWebController(use_chaos=use_chaos)
-    V.add(ctr,
-          inputs=['cam/image_array'],
-          outputs=['user/angle', 'user/throttle', 'user/mode', 'recording'],
-          threaded=True)
+    vehicle.add(cam, outputs=['cam/image_array'], threaded=True)
 
     # See if we should even run the pilot module.
     # This is only needed because the part run_condition only accepts boolean
+
     def pilot_condition(mode):
         if mode == 'user':
             return False
@@ -63,19 +58,19 @@ def drive(cfg, model_path=None, use_chaos=False):
             return True
 
     pilot_condition_part = Lambda(pilot_condition)
-    V.add(pilot_condition_part,
-          inputs=['user/mode'],
-          outputs=['run_pilot'])
+    vehicle.add(pilot_condition_part,
+                inputs=['user/mode'],
+                outputs=['run_pilot'])
 
     # Run the pilot if the mode is not user.
     kl = KerasLinear()
     if model_path:
         kl.load(model_path)
 
-    V.add(kl,
-          inputs=['cam/image_array'],
-          outputs=['pilot/angle', 'pilot/throttle'],
-          run_condition='run_pilot')
+    vehicle.add(kl,
+                inputs=['cam/image_array'],
+                outputs=['pilot/angle', 'pilot/throttle'],
+                run_condition='run_pilot')
 
     # Choose what inputs should change the car.
     def drive_mode(mode,
@@ -91,10 +86,10 @@ def drive(cfg, model_path=None, use_chaos=False):
             return pilot_angle, pilot_throttle
 
     drive_mode_part = Lambda(drive_mode)
-    V.add(drive_mode_part,
-          inputs=['user/mode', 'user/angle', 'user/throttle',
-                  'pilot/angle', 'pilot/throttle'],
-          outputs=['angle', 'throttle'])
+    vehicle.add(drive_mode_part,
+                inputs=['user/mode', 'user/angle', 'user/throttle',
+                        'pilot/angle', 'pilot/throttle'],
+                outputs=['angle', 'throttle'])
 
     steering_controller = PCA9685(cfg.STEERING_CHANNEL)
     steering = PWMSteering(controller=steering_controller,
@@ -107,24 +102,21 @@ def drive(cfg, model_path=None, use_chaos=False):
                            zero_pulse=cfg.THROTTLE_STOPPED_PWM,
                            min_pulse=cfg.THROTTLE_REVERSE_PWM)
 
-    V.add(steering, inputs=['angle'])
-    V.add(throttle, inputs=['throttle'])
+    vehicle.add(steering, inputs=['angle'])
+    vehicle.add(throttle, inputs=['throttle'])
 
     # add tub to save data
-    inputs = ['cam/image_array', 'user/angle', 'user/throttle', 'user/mode', 'timestamp']
+    inputs = ['cam/image_array', 'user/angle',
+              'user/throttle', 'user/mode', 'timestamp']
     types = ['image_array', 'float', 'float',  'str', 'str']
-
-    # multiple tubs
-    # th = TubHandler(path=cfg.DATA_PATH)
-    # tub = th.new_tub_writer(inputs=inputs, types=types)
 
     # single tub
     tub = TubWriter(path=cfg.TUB_PATH, inputs=inputs, types=types)
-    V.add(tub, inputs=inputs, run_condition='recording')
+    vehicle.add(tub, inputs=inputs, run_condition='recording')
 
     # run the vehicle
-    V.start(rate_hz=cfg.DRIVE_LOOP_HZ,
-            max_loop_count=cfg.MAX_LOOPS)
+    vehicle.start(rate_hz=cfg.DRIVE_LOOP_HZ,
+                  max_loop_count=cfg.MAX_LOOPS)
 
 
 def train(cfg, tub_names, new_model_path, base_model_path=None):
@@ -169,7 +161,7 @@ if __name__ == '__main__':
     cfg = donkeyx.load_config()
 
     if args['drive']:
-        drive(cfg, model_path=args['--model'], use_chaos=args['--chaos'])
+        drive(cfg, model_path=args['--model'])
 
     elif args['train']:
         tub = args['--tub']

@@ -7,7 +7,7 @@ performance.
 EXMAPLE
 -----------
 import donkeyx
-cfg = donkeyx.load_config(config_path='~/mycar/config.py')
+cfg = donkeyx.load_config(config_path='~/car-donkeyx/config.py')
 print(cfg.CAMERA_RESOLUTION)
 
 """
