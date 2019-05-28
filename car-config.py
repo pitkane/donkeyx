@@ -1,15 +1,8 @@
 """
 CAR CONFIG
 
-This file is read by your car application's manage.py script to change the car
+This file is read by your car application's car.py script to change the car
 performance.
-
-EXMAPLE
------------
-import donkeyx
-cfg = donkeyx.load_config(config_path='~/car-donkeyx/config.py')
-print(cfg.CAMERA_RESOLUTION)
-
 """
 
 

@@ -247,31 +247,6 @@ class Sim(BaseCommand):
         ss.go(('0.0.0.0', 9090))
 
 
-class TubCheck(BaseCommand):
-    def parse_args(self, args):
-        parser = argparse.ArgumentParser(
-            prog='tubcheck', usage='%(prog)s [options]')
-        parser.add_argument('tubs', nargs='+', help='paths to tubs')
-        parser.add_argument('--fix', action='store_true',
-                            default=False, help='paths to tubs')
-        parsed_args = parser.parse_args(args)
-        return parsed_args
-
-    def check(self, tub_paths, fix=False):
-        """
-        Check for any problems. Looks at tubs and find problems in any records or images that won't open.
-        If fix is True, then delete images and records that cause problems.
-        """
-        tubs = [Tub(path) for path in tub_paths]
-
-        for tub in tubs:
-            tub.check(fix=fix)
-
-    def run(self, args):
-        args = self.parse_args(args)
-        self.check(args.tubs, args.fix)
-
-
 class ShowHistogram(BaseCommand):
 
     def parse_args(self, args):
@@ -396,7 +371,6 @@ def execute_from_command_line():
         'calibrate': CalibrateCar,
         'tubhist': ShowHistogram,
         'tubplot': ShowPredictionPlots,
-        'tubcheck': TubCheck,
         'makemovie': MakeMovie,
         'sim': Sim,
     }

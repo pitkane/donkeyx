@@ -6,7 +6,10 @@ Wiki includes all of the documentation needed to get going!
 
 [donkeyx Wiki](https://github.com/pitkane/donkeyx/wiki)
 
-## Quick Links
+## Quick Start
+
+`python car.py drive`
+`python car.py train --tub ./tub --model ./models/maximumattack`
 
 * [donkeyx Wiki](https://github.com/pitkane/donkeyx/wiki)
 

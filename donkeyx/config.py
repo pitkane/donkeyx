@@ -48,7 +48,7 @@ def load_config(config_path=None):
     if config_path is None:
         import __main__ as main
         main_path = os.path.dirname(os.path.realpath(main.__file__))
-        config_path = os.path.join(main_path, 'config.py')
+        config_path = os.path.join(main_path, 'car-config.py')
 
     print('loading config file: {}'.format(config_path))
     cfg = Config()

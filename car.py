@@ -3,8 +3,8 @@
 Scripts to drive a donkeyx car and train a model for it.
 
 Usage:
-    manage.py (drive) [--model=<model>] [--js]
-    manage.py (train) [--tub=<tub1,tub2,..tubn>]  (--model=<model>) [--base_model=<base_model>] [--no_cache]
+    car.py (drive) [--model=<model>] [--js]
+    car.py (train) [--tub=<tub1,tub2,..tubn>]  (--model=<model>) [--base_model=<base_model>] [--no_cache]
 
 Options:
     -h --help        Show this screen.
@@ -21,9 +21,9 @@ from donkeyx.parts.keras import KerasLinear
 from donkeyx.parts.actuator import PCA9685, PWMSteering, PWMThrottle
 from donkeyx.parts.datastore import TubGroup, TubWriter
 from donkeyx.parts.clock import Timestamp
-from donkeyx.parts.controller import JoystickController
+from donkeyx.parts.joystick import JoystickController
 from donkeyx.parts.datastore import TubGroup, TubWriter
-from donkeyx.parts.keras import KerasCategorical
+from donkeyx.parts.keras import KerasLinear
 from donkeyx.parts.transform import Lambda
 
 

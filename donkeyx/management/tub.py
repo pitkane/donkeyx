@@ -12,26 +12,6 @@ import tornado.web
 from stat import S_ISREG, ST_MTIME, ST_MODE, ST_CTIME, ST_ATIME
 
 
-class TubsView(tornado.web.RequestHandler):
-
-    def initialize(self, data_path):
-        self.data_path = data_path
-
-    def get(self):
-        import fnmatch
-        dir_list = fnmatch.filter(os.listdir(self.data_path), '*')
-        dir_list.sort()
-        data = {"tubs": dir_list}
-        self.render("tub_web/tubs.html", **data)
-
-
-class TubView(tornado.web.RequestHandler):
-
-    def get(self, tub_id):
-        data = {}
-        self.render("tub_web/tub.html", **data)
-
-
 class TubApi(tornado.web.RequestHandler):
 
     def initialize(self, data_path):
