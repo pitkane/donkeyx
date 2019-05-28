@@ -18,7 +18,7 @@ setup(name='donkeyx',
       license='MIT',
       entry_points={
           'console_scripts': [
-              'donkeyx=donkeyx.management.base:execute_from_command_line',
+              'donkeyx=donkeyx.console:execute_from_command_line',
           ],
       },
       install_requires=['numpy',
@@ -35,18 +35,18 @@ setup(name='donkeyx',
                         ],
 
       extras_require={
-                      'tf': ['tensorflow>=1.9.0'],
-                      'tf_gpu': ['tensorflow-gpu>=1.9.0'],
-                      'pi': [
-                          'picamera',
-                          'Adafruit_PCA9685',
-                          ],
-                      'dev': [
-                          'pytest',
-                          'pytest-cov',
-                          'responses'
-                          ]
-                  },
+          'tf': ['tensorflow>=1.9.0'],
+          'tf_gpu': ['tensorflow-gpu>=1.9.0'],
+          'pi': [
+              'picamera',
+              'Adafruit_PCA9685',
+          ],
+          'dev': [
+              'pytest',
+              'pytest-cov',
+              'responses'
+          ]
+      },
 
       include_package_data=True,
 

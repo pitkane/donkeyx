@@ -20,16 +20,16 @@ python car.py drive --model ./models/maximumattack
 
 * [donkeyx Wiki](https://github.com/pitkane/donkeyx/wiki)
 
-## Packages & Libraries
+## Platforms & Packages & Libraries
 
+* Raspberry Pi and Jetson Nano
 * Conda 4.6.14
 * Python 3.7.3
 * Tensorflow 1.13.1
-* Raspberry Pi and Jetson Nano
 
 ## Out of the box you get
 
-* Support for both XBox, PS4 and PS3 controllers.
+* Joystick support for: XBox, PS4 and PS3 controllers.
 * Web UI to drive, train and drive with the chosen model
 
 ## What is Donkeycar
