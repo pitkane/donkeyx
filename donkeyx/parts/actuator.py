@@ -13,10 +13,11 @@ class PCA9685:
     PWM motor controler using PCA9685 boards.
     This is used for most RC Cars
     """
+
     def __init__(self, channel, frequency=60):
         import Adafruit_PCA9685
         # Initialise the PCA9685 using the default address (0x40).
-        self.pwm = Adafruit_PCA9685.PCA9685()
+        self.pwm = Adafruit_PCA9685.PCA9685(busnum=1)
         self.pwm.set_pwm_freq(frequency)
         self.channel = channel
 
@@ -24,7 +25,8 @@ class PCA9685:
         try:
             self.pwm.set_pwm(self.channel, 0, pulse)
         except OSError as err:
-            print("Unexpected issue setting PWM (check wires to motor board): {0}".format(err))
+            print(
+                "Unexpected issue setting PWM (check wires to motor board): {0}".format(err))
 
     def run(self, pulse):
         self.set_pulse(pulse)
@@ -84,12 +86,12 @@ class PWMThrottle:
     def run(self, throttle):
         if throttle > 0:
             pulse = donkeyx.util.data.map_range(throttle,
-                                           0, self.MAX_THROTTLE,
-                                           self.zero_pulse, self.max_pulse)
+                                                0, self.MAX_THROTTLE,
+                                                self.zero_pulse, self.max_pulse)
         else:
             pulse = donkeyx.util.data.map_range(throttle,
-                                           self.MIN_THROTTLE, 0,
-                                           self.min_pulse, self.zero_pulse)
+                                                self.MIN_THROTTLE, 0,
+                                                self.min_pulse, self.zero_pulse)
 
         self.controller.set_pulse(pulse)
 
@@ -102,6 +104,7 @@ class Adafruit_DCMotor_Hat:
     Adafruit DC Motor Controller
     Used for each motor on a differential drive car.
     """
+
     def __init__(self, motor_num):
         from Adafruit_MotorHAT import Adafruit_MotorHAT
         import atexit
@@ -123,10 +126,12 @@ class Adafruit_DCMotor_Hat:
         -1 is full backwards.
         """
         if speed > 1 or speed < -1:
-            raise ValueError("Speed must be between 1(forward) and -1(reverse)")
+            raise ValueError(
+                "Speed must be between 1(forward) and -1(reverse)")
 
         self.speed = speed
-        self.throttle = int(donkeyx.util.data.map_range(abs(speed), -1, 1, -255, 255))
+        self.throttle = int(donkeyx.util.data.map_range(
+            abs(speed), -1, 1, -255, 255))
 
         if speed > 0:
             self.motor.run(self.FORWARD)
