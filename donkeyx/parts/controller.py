@@ -5,7 +5,7 @@ import time
 import struct
 
 
-class Joystick():
+class Controller():
     """
     An interface to a physical joystick available at /dev/input
     """
@@ -141,7 +141,7 @@ class Joystick():
 
     def show_map(self):
         """
-        list the buttons and axis found on this joystick
+        list the buttons and axis found on this controller
         """
         print('%d axes found: %s' % (self.num_axes, ', '.join(self.axis_map)))
         print('%d buttons found: %s' %
@@ -149,7 +149,7 @@ class Joystick():
 
     def poll(self):
         """
-        query the state of the joystick, returns button which was pressed, if any,
+        query the state of the controller, returns button which was pressed, if any,
         and axis which was moved, if any. button_state will be None, 1, or 0 if no changes,
         pressed, or released. axis_val will be a float from -1 to +1. button and axis will
         be the string label determined by the axis map in init.
@@ -193,9 +193,9 @@ class Joystick():
         return button, button_state, axis, axis_val
 
 
-class JoystickController(object):
+class PS4Controller(object):
     """
-    Joystick client using access to local physical input
+    Controller client using access to local physical input
     """
 
     def __init__(self, poll_delay=0.0,
@@ -205,7 +205,7 @@ class JoystickController(object):
                  steering_scale=1.0,
                  throttle_scale=-1.0,
                  dev_fn='/dev/input/js0',
-                 auto_record_on_throttle=True):
+                 auto_record_on_throttle=False):
 
         self.angle = 0.0
         self.throttle = 0.0
@@ -239,7 +239,7 @@ class JoystickController(object):
         attempt to init joystick
         """
         try:
-            self.js = Joystick(self.dev_fn)
+            self.js = Controller(self.dev_fn)
             self.js.init()
         except FileNotFoundError:
             print(self.dev_fn, "not found.")
@@ -268,7 +268,7 @@ class JoystickController(object):
         * cross = PS3 cross => decrease max throttle
         """
 
-        # wait for joystick to be online
+        # wait for controller to be online
         while self.running and not self.init_js():
             time.sleep(5)
 

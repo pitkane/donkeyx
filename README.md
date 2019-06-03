@@ -4,21 +4,27 @@ donkeyx is a fork project based on [Donkeycar](http://donkeycar.com) started by 
 
 Wiki includes all of the documentation needed to get going!
 
-[donkeyx Wiki](https://github.com/pitkane/donkeyx/wiki)
+<!-- [donkeyx Wiki](https://github.com/pitkane/donkeyx/wiki) -->
 
 ## Quick Start
 
 ```bash
 pip install -e .
 
-python car.py drive
+python car/car.py drive
 
-python car.py train --tub ./tub --model ./models/maximumattack
+python car/car.py train --tub ./tub --model ./models/maximumattack
 
-python car.py drive --model ./models/maximumattack
+python car/car.py drive --model ./models/maximumattack
 ```
 
-* [donkeyx Wiki](https://github.com/pitkane/donkeyx/wiki)
+## Docs
+
+### Driving modes
+
+user, user_throttle, ai
+
+<!-- * [donkeyx Wiki](https://github.com/pitkane/donkeyx/wiki) -->
 
 ## Platforms & Packages & Libraries
 

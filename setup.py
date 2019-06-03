@@ -24,7 +24,6 @@ setup(name='donkeyx',
       install_requires=['numpy',
                         'pillow',
                         'docopt',
-                        'tornado==4.5.3',
                         'requests',
                         'h5py',
                         'python-socketio',
@@ -35,8 +34,8 @@ setup(name='donkeyx',
                         ],
 
       extras_require={
-          'tf': ['tensorflow>=1.9.0'],
-          'tf_gpu': ['tensorflow-gpu>=1.9.0'],
+          'tf': ['tensorflow>=1.13.0'],
+          'tf_gpu': ['tensorflow-gpu>=1.13.0'],
           'pi': [
               'picamera',
               'Adafruit_PCA9685',

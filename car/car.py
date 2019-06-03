@@ -21,7 +21,7 @@ from donkeyx.parts.keras import KerasLinear
 from donkeyx.parts.actuator import PCA9685, PWMSteering, PWMThrottle
 from donkeyx.parts.datastore import TubGroup, TubWriter
 from donkeyx.parts.clock import Timestamp
-from donkeyx.parts.joystick import JoystickController
+from donkeyx.parts.controller import PS4Controller
 from donkeyx.parts.datastore import TubGroup, TubWriter
 from donkeyx.parts.keras import KerasLinear
 from donkeyx.parts.transform import Lambda
