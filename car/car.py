@@ -15,7 +15,8 @@ import os
 from docopt import docopt
 import donkeyx
 
-from donkeyx.parts.camera import PiCamera
+# from donkeyx.parts.camera import PiCamera
+from donkeyx.parts.jetsoncamera import CSICamera
 from donkeyx.parts.transform import Lambda
 from donkeyx.parts.keras import KerasLinear
 from donkeyx.parts.actuator import PCA9685, PWMSteering, PWMThrottle
@@ -45,7 +46,11 @@ def drive(cfg, model_path=None):
     vehicle.add(clock, outputs=['timestamp'])
 
     # Camera
-    cam = PiCamera(resolution=cfg.CAMERA_RESOLUTION)
+    #cam = PiCamera(resolution=cfg.CAMERA_RESOLUTION)
+
+    # Jetson Camera
+    cam = CSICamera(resolution=cfg.CAMERA_RESOLUTION)
+
     vehicle.add(cam, outputs=['cam/image_array'], threaded=True)
 
     # See if we should even run the pilot module.
